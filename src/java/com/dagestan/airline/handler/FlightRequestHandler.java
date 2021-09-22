@@ -9,11 +9,10 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
-import static com.dagestan.airline.constant.FlightRequestParameters.*;
 
 public class FlightRequestHandler implements HttpHandler {
     private static final Logger LOGGER = Logger.getLogger(FlightRequestHandler.class.getName());
@@ -36,7 +35,7 @@ public class FlightRequestHandler implements HttpHandler {
         LOGGER.info("Запрос обработан успешно");
         OutputStream outputStream = httpExchange.getResponseBody();
         httpExchange.sendResponseHeaders(200, responseBody.length());
-        outputStream.write(responseBody.getBytes());
+        outputStream.write(responseBody.getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();
     }
@@ -47,13 +46,23 @@ public class FlightRequestHandler implements HttpHandler {
         LOGGER.info("Параметры запроса " + parameters);
 
         FlightRequest flightRequest = new FlightRequest();
-        flightRequest.setPrice(parameters.get(PRICE));
-        flightRequest.setAirline(parameters.get(AIRLINE));
-        flightRequest.setArriveAirport(parameters.get(ARRIVE_AIRPORT));
-        flightRequest.setDepartAirport(parameters.get(DEPART_AIRPORT));
-        flightRequest.setArriveDate(parameters.get(ARRIVE_DATE));
-        flightRequest.setDepartDate(parameters.get(DEPART_DATE));
-        flightRequest.setFlightClass(parameters.get(FLIGHT_CLASS));
+        flightRequest.setPrice(parameters.get(RequestParameters.PRICE));
+        flightRequest.setAirline(parameters.get(RequestParameters.AIRLINE));
+        flightRequest.setArriveAirport(parameters.get(RequestParameters.ARRIVE_AIRPORT));
+        flightRequest.setDepartAirport(parameters.get(RequestParameters.DEPART_AIRPORT));
+        flightRequest.setArriveDate(parameters.get(RequestParameters.ARRIVE_DATE));
+        flightRequest.setDepartDate(parameters.get(RequestParameters.DEPART_DATE));
+        flightRequest.setFlightClass(parameters.get(RequestParameters.FLIGHT_CLASS));
         return flightRequest;
+    }
+
+     private static class RequestParameters {
+        private static final String PRICE = "PRICE";
+        private static final String AIRLINE = "AIRLINE";
+        private static final String ARRIVE_AIRPORT = "ARRIVEAIRPORT";
+        private static final String DEPART_AIRPORT = "DEPARTAIRPORT";
+        private static final String ARRIVE_DATE = "ARRIVEDATE";
+        private static final String DEPART_DATE = "DEPARTDATE";
+        private static final String FLIGHT_CLASS = "FLIGHTCLASS";
     }
 }

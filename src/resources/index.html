@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2>Поиск рейсов</h2>
+
+<form method="GET" action="/tickets/search">
+    <label for="departAirport">Город отправления:</label><br>
+    <input type="text" id="departAirport" name="departAirport"><br>
+    <label for="arriveAirport">Город прибытия:</label><br>
+    <input type="text" id="arriveAirport" name="arriveAirport"><br>
+    <label for="airline">Авиакомпания:</label><br>
+    <input type="text" id="airline" name="airline"><br>
+    <label for="flightClass">Класс</label><br>
+    <select name="flightClass" id="flightClass">
+        <option value="">Выберите класс</option>
+        <option value="economy">Эконом</option>
+        <option value="business">Бизнес</option>
+    </select><br>
+    <label for="departDate">Время отправления:</label><br>
+    <input type="date" id="departDate" name="departDate"><br>
+    <label for="arriveDate">Время прибытия:</label><br>
+    <input type="date" id="arriveDate" name="arriveDate"><br>
+    <br>
+    <input type="submit" value="Искать"/>
+</form>
+
+</body>
+</html>

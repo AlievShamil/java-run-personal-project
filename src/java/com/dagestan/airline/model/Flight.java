@@ -1,19 +1,25 @@
 package com.dagestan.airline.model;
 
-import com.dagestan.airline.constant.FlightClasses;
+import com.dagestan.airline.constant.Airline;
+import com.dagestan.airline.constant.City;
+import com.dagestan.airline.constant.FlightClass;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public final class Flight {
-    private final String price;
-    private final String airline;
-    private final String arriveAirport;
-    private final String departAirport;
-    private final String arriveDate;
-    private final String departDate;
-    private final FlightClasses flightClass;
+    private final BigDecimal price;
+    private final Airline airline;
+    private final City departAirport;
+    private final City arriveAirport;
+    private final LocalDate departDate;
+    private final LocalDate arriveDate;
+    private final FlightClass flightClass;
 
-    public Flight(String price, String airline, String arriveAirport,
-           String departAirport, String arriveDate, String departDate,
-           FlightClasses flightClass) {
+    public Flight(BigDecimal price, Airline airline,
+                  City departAirport, City arriveAirport,
+                  LocalDate departDate, LocalDate arriveDate,
+                  FlightClass flightClass) {
         this.price = price;
         this.airline = airline;
         this.arriveAirport = arriveAirport;
@@ -23,31 +29,31 @@ public final class Flight {
         this.flightClass = flightClass;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public String getAirline() {
+    public Airline getAirline() {
         return airline;
     }
 
-    public String getArriveAirport() {
-        return arriveAirport;
-    }
-
-    public String getDepartAirport() {
+    public City getDepartAirport() {
         return departAirport;
     }
 
-    public String getArriveDate() {
-        return arriveDate;
+    public City getArriveAirport() {
+        return arriveAirport;
     }
 
-    public String getDepartDate() {
+    public LocalDate getDepartDate() {
         return departDate;
     }
 
-    public FlightClasses getFlightClass() {
+    public LocalDate getArriveDate() {
+        return arriveDate;
+    }
+
+    public FlightClass getFlightClass() {
         return flightClass;
     }
 
@@ -56,10 +62,10 @@ public final class Flight {
         return "{" +
                 "\"price\": " + price + "," +
                 "\"airline\": " + "\"" + airline + "\"," +
-                "\"arriveAirport\": " + "\"" + arriveAirport + "\"," +
                 "\"departAirport\": " + "\"" + departAirport + "\"," +
-                "\"arriveDate\": " + "\"" + arriveDate + "\"," +
+                "\"arriveAirport\": " + "\"" + arriveAirport + "\"," +
                 "\"departDate\": " + "\"" + departDate + "\"," +
+                "\"arriveDate\": " + "\"" + arriveDate + "\"," +
                 "\"flightClass\": " + "\"" + flightClass + "\"}";
     }
 }

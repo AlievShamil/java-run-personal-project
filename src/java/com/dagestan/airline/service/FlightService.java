@@ -10,18 +10,17 @@ import java.util.logging.Logger;
 
 public class FlightService {
     private static final Logger LOGGER = Logger.getLogger(FlightService.class.getName());
+    private final FlightsRepository flightsRepository;
+
+    public FlightService(FlightsRepository flightsRepository) {
+        this.flightsRepository = flightsRepository;
+    }
 
     public List<Flight> searchFlights(FlightRequest flightRequest) {
         LOGGER.info("Выполняем поиск " + flightRequest);
         List<Flight> listResult = new ArrayList<>();
-        for (Flight flight : FlightsRepository.flights) {
-            if (flight.getPrice().equalsIgnoreCase(flightRequest.getPrice())
-                    || flight.getAirline().equalsIgnoreCase(flightRequest.getAirline())
-                    || flight.getArriveAirport().equalsIgnoreCase(flightRequest.getArriveAirport())
-                    || flight.getDepartAirport().equalsIgnoreCase(flightRequest.getDepartAirport())
-                    || flight.getArriveDate().equalsIgnoreCase(flightRequest.getArriveDate())
-                    || flight.getDepartDate().equalsIgnoreCase(flightRequest.getDepartDate())
-                    || flight.getFlightClass().getDescription().equalsIgnoreCase(flightRequest.getFlightClass())) {
+        for (Flight flight : flightsRepository.getFlights()) {
+            if (compareRequest(flight, flightRequest)) {
                 listResult.add(flight);
             }
         }
@@ -29,4 +28,17 @@ public class FlightService {
         return listResult;
     }
 
+    private boolean compareRequest(Flight flight, FlightRequest flightRequest) {
+        return compare(flight.getPrice().toString(), flightRequest.getPrice())
+                && compare(flight.getAirline().getDescription(), flightRequest.getAirline())
+                && compare(flight.getArriveAirport().getDescription(), flightRequest.getArriveAirport())
+                && compare(flight.getDepartAirport().getDescription(), flightRequest.getDepartAirport())
+                && compare(flight.getArriveDate().toString(), flightRequest.getArriveDate())
+                && compare(flight.getDepartDate().toString(), flightRequest.getDepartDate())
+                && compare(flight.getFlightClass().getDescription(), flightRequest.getFlightClass());
+    }
+
+    private boolean compare(String sourceParam, String requestParam) {
+        return requestParam == null || requestParam.isEmpty() || sourceParam.equalsIgnoreCase(requestParam);
+    }
 }
