@@ -25,6 +25,7 @@ public class ViewHandler implements HttpHandler {
     private byte[] getViewBytes() {
         ClassLoader classLoader = ViewHandler.class.getClassLoader();
         URL resource = classLoader.getResource("index.html");
+
         if (resource != null) {
             try {
                 Path path = Paths.get(resource.toURI());
@@ -33,6 +34,7 @@ public class ViewHandler implements HttpHandler {
                 e.printStackTrace();
             }
         }
+
         return "View not found".getBytes(StandardCharsets.UTF_8);
     }
 }

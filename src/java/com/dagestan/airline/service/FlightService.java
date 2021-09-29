@@ -18,12 +18,14 @@ public class FlightService {
 
     public List<Flight> searchFlights(FlightRequest flightRequest) {
         LOGGER.info("Выполняем поиск " + flightRequest);
+
         List<Flight> listResult = new ArrayList<>();
         for (Flight flight : flightsRepository.getFlights()) {
             if (compareRequest(flight, flightRequest)) {
                 listResult.add(flight);
             }
         }
+
         LOGGER.info("Результат поиска " + listResult);
         return listResult;
     }

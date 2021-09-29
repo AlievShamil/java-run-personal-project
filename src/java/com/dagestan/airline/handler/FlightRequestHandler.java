@@ -26,13 +26,16 @@ public class FlightRequestHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         LOGGER.info("Обрабатываем запрос: " + exchange.getRequestURI());
-        FlightRequest flightRequest = getFlightRequest(exchange);
+
+        String query = exchange.getRequestURI().getRawQuery().toUpperCase();
+        FlightRequest flightRequest = getFlightRequest(query);
         List<Flight> listResult = flightService.searchFlights(flightRequest);
         handleResponse(exchange, listResult.toString());
     }
 
     private void handleResponse(HttpExchange httpExchange, String responseBody) throws IOException {
         LOGGER.info("Запрос обработан успешно");
+
         OutputStream outputStream = httpExchange.getResponseBody();
         httpExchange.sendResponseHeaders(200, responseBody.length());
         outputStream.write(responseBody.getBytes(StandardCharsets.UTF_8));
@@ -40,8 +43,7 @@ public class FlightRequestHandler implements HttpHandler {
         outputStream.close();
     }
 
-    private FlightRequest getFlightRequest(HttpExchange exchange) {
-        String query = exchange.getRequestURI().getRawQuery().toUpperCase();
+    private FlightRequest getFlightRequest(String query) {
         Map<String, String> parameters = Utils.queryToMap(query);
         LOGGER.info("Параметры запроса " + parameters);
 
@@ -53,10 +55,11 @@ public class FlightRequestHandler implements HttpHandler {
         flightRequest.setArriveDate(parameters.get(RequestParameters.ARRIVE_DATE));
         flightRequest.setDepartDate(parameters.get(RequestParameters.DEPART_DATE));
         flightRequest.setFlightClass(parameters.get(RequestParameters.FLIGHT_CLASS));
+
         return flightRequest;
     }
 
-     private static class RequestParameters {
+    private static class RequestParameters {
         private static final String PRICE = "PRICE";
         private static final String AIRLINE = "AIRLINE";
         private static final String ARRIVE_AIRPORT = "ARRIVEAIRPORT";
