@@ -1,7 +1,7 @@
 package com.dagestan.airline.service;
 
-import com.dagestan.airline.model.FlightRequest;
 import com.dagestan.airline.repository.FlightsRepository;
+import com.dagestan.airline.model.FlightRequest;
 import com.dagestan.airline.model.Flight;
 
 import java.util.ArrayList;
