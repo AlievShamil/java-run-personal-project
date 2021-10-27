@@ -1,8 +1,8 @@
 package com.dagestan.airline.handler;
 
+import com.dagestan.airline.service.FlightService;
 import com.dagestan.airline.model.FlightRequest;
 import com.dagestan.airline.model.Flight;
-import com.dagestan.airline.service.FlightService;
 import com.dagestan.airline.util.Utils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -27,7 +27,7 @@ public class FlightRequestHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         LOGGER.info("Обрабатываем запрос: " + exchange.getRequestURI());
 
-        String query = exchange.getRequestURI().getRawQuery().toUpperCase();
+        String query = exchange.getRequestURI().getRawQuery();
         FlightRequest flightRequest = getFlightRequest(query);
         List<Flight> listResult = flightService.searchFlights(flightRequest);
         handleResponse(exchange, listResult.toString());
