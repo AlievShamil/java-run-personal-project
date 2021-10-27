@@ -16,6 +16,10 @@ public class Application {
     public static void main(String[] args) throws IOException {
         LoggerConfiguration.init();
         Server httpServer = new Server(8080,0);
+
+        FlightRequestHandler flightRequestHandler = new FlightRequestHandler(new FlightService(new FlightsRepository()));
+        httpServer.createContext("/tickets/search", flightRequestHandler);
+        httpServer.createContext("/tickets", new ViewHandler());
         httpServer.start();
     }
 }

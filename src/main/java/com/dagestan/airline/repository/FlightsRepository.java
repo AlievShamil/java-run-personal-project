@@ -10,39 +10,48 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-public class FlightsRepository {
-    private final List<Flight> flights = Arrays.asList(new Flight(
-                    new BigDecimal("5000"),
-                    Airline.S7,
-                    City.MOSCOW,
-                    City.LONDON,
-                    LocalDate.parse("2021-09-10"),
-                    LocalDate.parse("2021-09-15"),
-                    FlightClass.ECONOMY),
-            new Flight(
-                    new BigDecimal("15000"),
-                    Airline.EMIRATES,
-                    City.MOSCOW,
-                    City.DUBAI,
-                    LocalDate.parse("2021-09-10"),
-                    LocalDate.parse("2021-09-15"),
-                    FlightClass.BUSINESS),
-            new Flight(
-                    new BigDecimal("9500.50"),
-                    Airline.PEGASUS,
-                    City.ANKARA,
-                    City.MOSCOW,
-                    LocalDate.parse("2021-09-11"),
-                    LocalDate.parse("2021-09-15"),
-                    FlightClass.ECONOMY),
-            new Flight(
-                    new BigDecimal("80000"),
-                    Airline.POBEDA,
-                    City.MOSCOW,
-                    City.LONDON,
-                    LocalDate.parse("2021-09-13"),
-                    LocalDate.parse("2021-09-15"),
-                    FlightClass.BUSINESS));
+public class FlightsRepository implements IFlightsRepository {
+
+    private final List<Flight> flights = Arrays.asList(
+            Flight.newBuilder()
+                    .setPrice(new BigDecimal("5000"))
+                    .setAirline(Airline.S7)
+                    .setDepartAirport(City.MOSCOW)
+                    .setArriveAirport(City.LONDON)
+                    .setDepartDate(LocalDate.parse("2021-09-10"))
+                    .setArriveDate(LocalDate.parse("2021-09-15"))
+                    .setFlightClass(FlightClass.ECONOMY)
+                    .build(),
+
+            Flight.newBuilder()
+                    .setPrice(new BigDecimal("15000"))
+                    .setAirline(Airline.EMIRATES)
+                    .setDepartAirport(City.MOSCOW)
+                    .setArriveAirport(City.DUBAI)
+                    .setDepartDate(LocalDate.parse("2021-09-10"))
+                    .setArriveDate(LocalDate.parse("2021-09-15"))
+                    .setFlightClass(FlightClass.BUSINESS)
+                    .build(),
+
+            Flight.newBuilder()
+                    .setPrice(new BigDecimal("9500.50"))
+                    .setAirline(Airline.PEGASUS)
+                    .setDepartAirport(City.ANKARA)
+                    .setArriveAirport(City.MOSCOW)
+                    .setDepartDate(LocalDate.parse("2021-09-11"))
+                    .setArriveDate(LocalDate.parse("2021-09-15"))
+                    .setFlightClass(FlightClass.ECONOMY)
+                    .build(),
+
+            Flight.newBuilder()
+                    .setPrice(new BigDecimal("80000"))
+                    .setAirline(Airline.POBEDA)
+                    .setDepartAirport(City.MOSCOW)
+                    .setArriveAirport(City.LONDON)
+                    .setDepartDate(LocalDate.parse("2021-09-13"))
+                    .setArriveDate(LocalDate.parse("2021-09-15"))
+                    .setFlightClass(FlightClass.BUSINESS)
+                    .build());
 
     public List<Flight> getFlights() {
         return flights;

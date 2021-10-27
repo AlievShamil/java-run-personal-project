@@ -4,6 +4,7 @@ import com.dagestan.airline.handler.FlightRequestHandler;
 import com.dagestan.airline.handler.ViewHandler;
 import com.dagestan.airline.repository.FlightsRepository;
 import com.dagestan.airline.service.FlightService;
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -19,15 +20,13 @@ public class Server {
     }
 
     public void start() {
-        createContext();
         server.start();
 
         LOGGER.info("Сервер запущен");
     }
 
-    private void createContext() {
-        server.createContext("/tickets/search", getFlightRequestHandler());
-        server.createContext("/tickets", new ViewHandler());
+    public void createContext(String path, HttpHandler handler) {
+        server.createContext(path, handler);
     }
 
     public void stop(int delay) {
